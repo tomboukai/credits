@@ -1,0 +1,60 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf600
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww28600\viewh18620\viewkind0
+\pard\tqr\tx566\tqr\tx1133\tqr\tx1700\tqr\tx2267\tqr\tx2834\tqr\tx3401\tqr\tx3968\tqr\tx4535\tqr\tx5102\tqr\tx5669\tqr\tx6236\tqr\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 CREATE (Azrieli:Mall\{title:'Azrieli',x:55.12, y:47.13, City:'Tel Aviv'\})\
+CREATE (Zara:CREDIT\{title:'Zara', Value:100, SellingPrice:85, Validity:'31/12/2019', Type:'Clothing'\})\
+CREATE (Renuar:CREDIT\{title:'Renuar', Value:150, SellingPrice:130, Validity:'14/11/2019', Type:'Clothing'\})\
+\
+CREATE\
+(Azrieli)-[:has_credit_to]->(Zara),\
+(Azrieli)-[:has_credit_to]->(Renuar)\
+\
+CREATE (Sarona:Mall\{title:'Sarona Market',x:36.49, y:98.43, City:'Tel Aviv'\})\
+CREATE (Celio:CREDIT\{title:'Celio', Value:120, SellingPrice:60, Validity:'01/09/2019', Type:'Clothing'\})\
+CREATE (Golf:CREDIT\{title:'Golf', Value:210, SellingPrice:185, Validity:'19/10/2019', Type:'Clothing'\})\
+\
+CREATE\
+(Sarona)-[:has_credit_to]->(Celio),\
+(Sarona)-[:has_credit_to]->(Golf)\
+\
+\
+CREATE (LondonMinistor:Mall\{title:'London Ministor',x:39.22, y:104.29, City:'Tel Aviv'\})\
+CREATE (RamiLevy:CREDIT\{title:'RamiLevy', Value:300, SellingPrice:220, Validity:'02/10/2019', Type:'Food'\})\
+CREATE (Fox:CREDIT\{title:'Fox', Value:70, SellingPrice:30, Validity:'29/08/2019', Type:'Clothing'\})\
+\
+CREATE\
+(LondonMinistor)-[:has_credit_to]->(RamiLevy),\
+(LondonMinistor)-[:has_credit_to]->(Fox)\
+\
+\
+CREATE\
+(Azrieli)-[:NEXT_TO\{DistanceM:500\}]->(Sarona),\
+(Sarona)-[:NEXT_TO\{DistanceM:400\}]->(LondonMinistor)\
+\
+CREATE (telaviv:City\{title:'Tel Aviv', x:55.12, y:47.13\})\
+CREATE (HodHasharon:City\{title:'Hod Hasharon', x:88.12, y:97.11\})\
+CREATE (Israel:Country\{title:'Israel', x:103.1312, y:234.0912\})\
+\
+CREATE (u1:User\{title:'Tom', age:26, ph:'0543065307', email:'tomboukai@gmail.com', creditcard:'458012312312', City:'Tel Aviv'\})\
+CREATE (u2:User\{title:'Yotam', age:30, ph:'0504860087', email:'yom17@gmail.com', creditcard:'53262314243', City:'Hod Hasharon'\})\
+CREATE (u3:User\{title:'Omer', age:30, ph:'054353455', email:'omer@gmail.com', creditcard:'234234234', City:'Tel Aviv'\})\
+CREATE (u4:User\{title:'Avraham', age:30, ph:'05424324', email:'avraham@gmail.com', creditcard:'458098764837', City:'Tel Aviv'\})\
+\
+\
+CREATE\
+(Israel)-[:city]->(telaviv),\
+(u1)-[:lives_in]->(telaviv),\
+(u3)-[:lives_in]->(telaviv),\
+(u4)-[:lives_in]->(telaviv),\
+(u1)-[:sells_credit]->(Zara),\
+(u1)-[:friend]->(u2),\
+(u1)-[:friend]->(u3),\
+(u1)-[:friend]->(u4),\
+(u2)-[:lives_in]->(HodHasharon),\
+(telaviv)-[:CENTER_OF_TLV]->(Azrieli),\
+(telaviv)-[:CENTER_OF_TLV]->(Sarona),\
+(telaviv)-[:CENTER_OF_TLV]->(LondonMinistor)}

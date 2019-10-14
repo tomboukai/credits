@@ -12,6 +12,8 @@ const COUNT = {
     user: 7,
     credit: 10,
 }
+const types = ['Clothing', 'Gem', 'Sports', 'Food', 'Clinic']
+
 session.run("MATCH (n) OPTIONAL MATCH (n)-[r]-() DELETE n,r")
 
 const mall = 'CREATE (n:Mall{title:{title},x:{x}, y:{y}, ref:{ref}})'
@@ -56,12 +58,13 @@ const creditRefs = [];
 for (let index = 0; index < COUNT.credit; index++) {
     const ref = uuidv1();
     creditRefs.push(ref);
+    const value = Math.floor((Math.random() * 100)) * 10;
     session.run(credit, {
         title: ref,
-        value: 0,
-        sellingPrice: 0,
+        value,
+        sellingPrice: value - Math.floor((Math.random() * 10)) * 10,
         validity: '',
-        type: '',
+        type: types[Math.floor((Math.random() * types.length))],
         ref
     })
 }

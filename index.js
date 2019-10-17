@@ -12,7 +12,7 @@ const neo4jDriver = neo4jClient.driver(
     neo4jClient.auth.basic('neo4j', 'neo4j123')
 )
 const neo4j = neo4jDriver.session()
-
+const p = p => `'${p}'`;
 const uuidv1 = require('uuid/v1');
 const COUNT = {
     country: 1,
@@ -44,9 +44,9 @@ for (let index = 0; index < COUNT.user; index++) {
         creditcard: '',
         ref
     })
-    mysql.query(sqlFormatter.format("INSERT INTO user VALUES ('?','?','?','?','?','?')", {
-        params: [ref, ref, age, '', '', '']
-    }), err => console.log(err));
+    mysql.query(sqlFormatter.format("INSERT INTO credits.user VALUES (?,?,?,?,?,?)", {
+        params: [p(ref), p(ref), age, p(''), p(''), p('')]
+    }), err => err && console.log(err));
 }
 console.log('NEO: Added users: ', COUNT.user);
 console.log('SQL: Added users: ', COUNT.user);
@@ -62,9 +62,9 @@ userRefs.map(ref => {
                 neo4j.run("MATCH (a:User),(b:User) WHERE a.ref = {a} AND b.ref = {b} CREATE (a)-[r:FRIEND_OF]->(b)", {
                     a: linkRef, b: ref
                 })
-                mysql.query(sqlFormatter.format("INSERT INTO user VALUES ('?','?','?','?','?','?')", {
-                    params: [ref, ref, age, '', '', '']
-                }), err => console.log(err));            
+                mysql.query(sqlFormatter.format("INSERT INTO credits.friend (userId1, userId2) VALUES (?,?)", {
+                    params: [p(linkRef), p(ref)]
+                }), err => err && console.log(err));
             }
         }
     }

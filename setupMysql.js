@@ -1,6 +1,6 @@
 var mysql = require('mysql');
 
-var con = mysql.createConnection({
+var conZero = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "gvt123",
@@ -14,35 +14,51 @@ const credit = "CREATE TABLE credit (id varchar(36),  title varchar(40),  value 
 
 const friend = "CREATE TABLE friend (id int AUTO_INCREMENT,  userId1 varchar(40),  userId2 varchar(40),  PRIMARY KEY (id))";
 
-con.connect(function (err) {
+conZero.connect(function (err) {
   if (err) throw err;
   console.log("Connected!");
-  con.query("CREATE DATABASE credits", function (err, result) {
+  conZero.query("DROP DATABASE credits", function (err, result) {
+    if (err) throw err;
+    console.log("Database dropped");
+  });
+  conZero.query("CREATE DATABASE credits", function (err, result) {
     if (err) throw err;
     console.log("Database created");
-  });
-  con.query(user, function (err, result) {
-    if (err) throw err;
-    console.log("Table created");
-  });
-  con.query(country, function (err, result) {
-    if (err) throw err;
-    console.log("Table created");
-  });
-  con.query(city, function (err, result) {
-    if (err) throw err;
-    console.log("Table created");
-  });
-  con.query(mall, function (err, result) {
-    if (err) throw err;
-    console.log("Table created");
-  });
-  con.query(credit, function (err, result) {
-    if (err) throw err;
-    console.log("Table created");
-  });
-  con.query(friend, function (err, result) {
-    if (err) throw err;
-    console.log("Table created");
+
+    var con = mysql.createConnection({
+      host: "localhost",
+      user: "root",
+      password: "gvt123",
+      database: "credits",
+    });
+
+    con.connect(function (err) {
+      if (err) throw err;
+      console.log("Connected!");
+      con.query(user, function (err, result) {
+        if (err) throw err;
+        console.log("Table created");
+      });
+      con.query(country, function (err, result) {
+        if (err) throw err;
+        console.log("Table created");
+      });
+      con.query(city, function (err, result) {
+        if (err) throw err;
+        console.log("Table created");
+      });
+      con.query(mall, function (err, result) {
+        if (err) throw err;
+        console.log("Table created");
+      });
+      con.query(credit, function (err, result) {
+        if (err) throw err;
+        console.log("Table created");
+      });
+      con.query(friend, function (err, result) {
+        if (err) throw err;
+        console.log("Table created");
+      });
+    });
   });
 });

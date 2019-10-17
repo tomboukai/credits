@@ -1,3 +1,5 @@
+CREATE DATABASE credits;
+
 CREATE TABLE user (
     id varchar(36),
     title varchar(40),
